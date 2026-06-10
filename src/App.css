@@ -1,0 +1,437 @@
+.scene-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(180deg, var(--sky-a), var(--sky-b) 52%, var(--sky-c));
+  transition: background 900ms ease;
+  overflow: hidden;
+}
+
+.scene-layer canvas {
+  position: relative;
+  z-index: 1;
+}
+
+.sky-gradient {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 78%, rgba(255, 220, 160, 0.2), transparent 34%),
+    radial-gradient(circle at 82% 20%, color-mix(in srgb, var(--theme-accent) 34%, transparent), transparent 18%),
+    linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.18) 100%);
+  mix-blend-mode: screen;
+}
+
+.celestial-body,
+.horizon-silhouette,
+.mist-band {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.celestial-body {
+  top: 11%;
+  right: 12%;
+  width: clamp(76px, 10vw, 140px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #ffe7a5;
+  box-shadow: 0 0 70px rgba(255, 220, 140, 0.54);
+  opacity: 0.72;
+  transition: 900ms ease;
+}
+
+.time-night .celestial-body {
+  background: radial-gradient(circle at 35% 30%, #fff7d3, #d8e1ff 58%, #9eb0d8);
+  box-shadow: 0 0 80px rgba(198, 212, 255, 0.34);
+}
+
+.time-dawn .celestial-body {
+  top: 64%;
+  right: 18%;
+  background: #ffd18a;
+  opacity: 0.38;
+}
+
+.time-day .celestial-body {
+  top: 14%;
+  right: 14%;
+  background: #fff5af;
+  box-shadow: 0 0 120px rgba(255, 246, 176, 0.68);
+}
+
+.time-dusk .celestial-body {
+  top: 62%;
+  right: 16%;
+  background: #ff9d5c;
+  box-shadow: 0 0 100px rgba(255, 126, 78, 0.55);
+}
+
+.horizon-silhouette {
+  left: -4%;
+  right: -4%;
+  bottom: -1px;
+  height: 17vh;
+  background:
+    linear-gradient(135deg, transparent 0 22%, rgba(2, 5, 16, 0.5) 22% 29%, transparent 29% 100%),
+    linear-gradient(45deg, transparent 0 28%, rgba(2, 5, 16, 0.58) 28% 34%, transparent 34% 100%),
+    linear-gradient(180deg, transparent 0%, rgba(2, 4, 12, 0.78) 72%);
+  opacity: 0.62;
+}
+
+.time-day .horizon-silhouette {
+  opacity: 0.16;
+}
+
+.mist-band {
+  left: -15%;
+  width: 130%;
+  height: 22vh;
+  border-radius: 999px;
+  background: rgba(255, 242, 210, 0.18);
+  filter: blur(34px);
+  opacity: 0.55;
+  animation: mistDrift 16s ease-in-out infinite alternate;
+}
+
+.mist-a {
+  bottom: 11%;
+}
+
+.mist-b {
+  bottom: 24%;
+  animation-duration: 23s;
+  animation-direction: alternate-reverse;
+  opacity: 0.28;
+}
+
+.time-day .mist-band {
+  opacity: 0.11;
+}
+
+.time-night .mist-band {
+  background: rgba(101, 125, 194, 0.16);
+  opacity: 0.26;
+}
+
+@keyframes mistDrift {
+  from {
+    transform: translateX(-5%) scaleY(0.85);
+  }
+
+  to {
+    transform: translateX(5%) scaleY(1.05);
+  }
+}
+
+.site-shell {
+  position: relative;
+  z-index: 3;
+  min-height: 100svh;
+  padding: 48px clamp(18px, 4vw, 64px);
+  color: #fff4dc;
+}
+
+.site-shell::before {
+  content: '';
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: -1;
+  width: min(720px, 72vw);
+  background: linear-gradient(90deg, rgba(4, 5, 14, 0.28), rgba(4, 5, 14, 0));
+  pointer-events: none;
+}
+
+.home-page {
+  min-height: calc(100svh - 96px);
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
+  align-items: center;
+  gap: clamp(28px, 6vw, 88px);
+}
+
+.eyebrow {
+  margin: 0 0 14px;
+  color: rgba(255, 235, 190, 0.72);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-shadow: 0 0 18px rgba(255, 218, 149, 0.22);
+}
+
+h1 {
+  max-width: 720px;
+  margin: 0;
+  color: #fff7df;
+  font-family: var(--serif);
+  font-size: clamp(44px, 7vw, 92px);
+  font-weight: 600;
+  line-height: 0.9;
+  letter-spacing: 0;
+  text-shadow: 0 18px 60px rgba(0, 0, 0, 0.36);
+}
+
+h2 {
+  margin: 0;
+  color: #fff7df;
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 650;
+  letter-spacing: 0;
+}
+
+.intro,
+.content-page > p {
+  max-width: 620px;
+  margin: 24px 0 0;
+  color: rgba(255, 244, 220, 0.78);
+  font-size: clamp(17px, 2vw, 21px);
+  line-height: 1.65;
+  text-shadow: 0 8px 28px rgba(0, 0, 0, 0.28);
+}
+
+.compass-stage {
+  width: min(72svh, 620px);
+  max-width: 100%;
+  aspect-ratio: 1;
+  justify-self: center;
+  filter: drop-shadow(0 28px 70px rgba(0, 0, 0, 0.42)) drop-shadow(0 0 42px rgba(246, 209, 122, 0.18));
+}
+
+.content-page {
+  width: min(1040px, 100%);
+  min-height: calc(100svh - 96px);
+  margin: 0 auto;
+  padding-top: clamp(64px, 10vh, 120px);
+}
+
+.content-page.narrow {
+  width: min(720px, 100%);
+}
+
+.poem-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 36px;
+}
+
+.poem-card {
+  min-height: 180px;
+  padding: 22px;
+  border: 1px solid rgba(255, 235, 190, 0.26);
+  border-radius: 8px;
+  background:
+    linear-gradient(145deg, rgba(255, 239, 194, 0.1), transparent 42%),
+    rgba(6, 10, 24, 0.38);
+  backdrop-filter: blur(18px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 24px 70px rgba(0, 0, 0, 0.2);
+  transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+}
+
+.poem-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 219, 142, 0.52);
+  background:
+    linear-gradient(145deg, rgba(255, 226, 156, 0.16), transparent 42%),
+    rgba(6, 10, 24, 0.46);
+}
+
+.poem-card p {
+  margin: 18px 0 0;
+  color: rgba(255, 244, 220, 0.76);
+  line-height: 1.55;
+}
+
+.mini-compass {
+  position: fixed;
+  top: 22px;
+  left: 22px;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: repeat(2, 32px);
+  gap: 4px;
+  padding: 6px;
+  border: 1px solid rgba(255, 235, 190, 0.25);
+  border-radius: 8px;
+  background: rgba(5, 7, 18, 0.42);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
+}
+
+.mini-compass a {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: 5px;
+  color: rgba(255, 244, 220, 0.68);
+  font-family: var(--mono);
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.mini-compass a.active,
+.mini-compass a:hover {
+  color: #201404;
+  background: #f3c96c;
+}
+
+.airplane-cursor,
+.airplane-trail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  pointer-events: none;
+  transform-origin: center;
+}
+
+.airplane-cursor {
+  width: 22px;
+  height: 22px;
+  margin: -11px 0 0 -11px;
+}
+
+.airplane-cursor span {
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 11px solid transparent;
+  border-bottom: 11px solid transparent;
+  border-left: 18px solid #ffe9a6;
+  filter: drop-shadow(0 0 10px rgba(255, 231, 166, 0.8));
+}
+
+.airplane-trail {
+  width: 64px;
+  height: 1px;
+  margin-left: -74px;
+  opacity: 0.74;
+  box-shadow: 0 0 18px currentColor;
+}
+
+.skip-link {
+  position: fixed;
+  left: 12px;
+  bottom: 12px;
+  z-index: 20;
+  transform: translateY(150%);
+  color: #14110a;
+  background: #f3c96c;
+  padding: 8px 10px;
+  border-radius: 6px;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.time-switcher {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: calc(100vw - 36px);
+  padding: 10px;
+  border: 1px solid rgba(255, 235, 190, 0.24);
+  border-radius: 8px;
+  color: rgba(255, 244, 220, 0.82);
+  background: rgba(5, 7, 18, 0.42);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.24);
+}
+
+.time-switcher span {
+  min-width: 82px;
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 650;
+  line-height: 1;
+}
+
+.time-switcher small {
+  display: block;
+  margin-top: 4px;
+  color: rgba(255, 244, 220, 0.48);
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.time-switcher div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.time-switcher button {
+  border: 0;
+  border-radius: 5px;
+  padding: 7px 9px;
+  color: rgba(255, 244, 220, 0.72);
+  background: rgba(255, 255, 255, 0.08);
+  font: 600 11px/1 var(--sans);
+}
+
+.time-switcher button:hover,
+.time-switcher button.active {
+  color: #1d1406;
+  background: #f3c96c;
+}
+
+@media (max-width: 820px) {
+  .site-shell {
+    padding: 82px 18px 28px;
+  }
+
+  .home-page {
+    min-height: calc(100svh - 56px);
+    grid-template-columns: 1fr;
+    align-content: center;
+    gap: 18px;
+  }
+
+  .home-page h1 {
+    font-size: 38px;
+    line-height: 1;
+  }
+
+  .intro {
+    margin-top: 16px;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .compass-stage {
+    width: min(78vw, 360px);
+  }
+
+  .poem-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .airplane-cursor,
+  .airplane-trail {
+    display: none;
+  }
+
+  .time-switcher {
+    left: 12px;
+    right: 12px;
+    top: 12px;
+    bottom: auto;
+    justify-content: space-between;
+  }
+
+  .time-switcher span {
+    display: none;
+  }
+}
